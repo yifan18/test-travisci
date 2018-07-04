@@ -9,7 +9,6 @@ branches:
   - stable
 
 before_install:
-  - openssl aes-256-cbc -K $encrypted_2749aaa3c5b2_key -iv $encrypted_2749aaa3c5b2_iv
-  -in id_rsa.enc -out ~\/.ssh/id_rsa -d
+  - openssl aes-256-cbc -K $encrypted_2749aaa3c5b2_key -iv $encrypted_2749aaa3c5b2_iv -in id_rsa.enc -out ~\/.ssh/id_rsa -d
 after_success:
   - scp ./ "root@$HOST:$PATH"
