@@ -20,4 +20,4 @@ before_install:
   # - scp -o StrictHostKeyChecking=no ./ root@$serverhost:$serverpath
 after_success:
   - ls -al
-  - scp -o StrictHostKeyChecking=no build root@$serverhost:$serverpath
+  - scp -o StrictHostKeyChecking=no -r build root@$serverhost:$serverpath
