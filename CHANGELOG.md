@@ -11,3 +11,4 @@
 # v1.0.3
 
 - UPDATE 试着触发构建
+- FIX travis.yml 少了一个. 气哭
