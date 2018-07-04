@@ -11,9 +11,9 @@ branches:
   - stable
 
 before_install:
-  - ssh-agent -s
-  - openssl aes-256-cbc -K $encrypted_2749aaa3c5b2_key -iv $encrypted_2749aaa3c5b2_iv -in id_rsa.enc -out id_rsa -d
-  - chmod 600 id_rsa
-  - ssh-add id_rsa
+  # - ssh-agent -s
+  - openssl aes-256-cbc -K $encrypted_2749aaa3c5b2_key -iv $encrypted_2749aaa3c5b2_iv -in id_rsa.enc -out ~/.ssh/id_rsa -d
+  # - chmod 600 id_rsa
+  # - ssh-add id_rsa
 after_success:
   - scp ./ root@$serverhost:$serverpath
