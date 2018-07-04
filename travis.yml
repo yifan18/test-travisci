@@ -6,3 +6,8 @@ install
   - npm install
 script:
   - npm run build
+# safelist
+branches:
+  only:
+  - master
+  - stable
