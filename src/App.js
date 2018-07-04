@@ -11,6 +11,7 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <p className="App-intro">I try depoly this web to Travis CI, keep happy</p>
+        试着提交一个文件以触发构建
       </div>
     );
   }
