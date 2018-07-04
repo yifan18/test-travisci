@@ -19,4 +19,5 @@ before_install:
   - chmod 600 ~/.ssh/id_rsa
   # - scp -o StrictHostKeyChecking=no ./ root@$serverhost:$serverpath
 after_success:
+  - ls -al
   - scp -o StrictHostKeyChecking=no build root@$serverhost:$serverpath
