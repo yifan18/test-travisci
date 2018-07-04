@@ -9,7 +9,9 @@ branches:
   only:
   - master
   - stable
-
+addons:
+  ssh_known_hosts:
+  - 144.48.141.179 #受信主机，你的Linux服务器ip
 before_install:
   - openssl aes-256-cbc -K $encrypted_2749aaa3c5b2_key -iv $encrypted_2749aaa3c5b2_iv -in id_rsa.enc -out ~/.ssh/id_rsa -d
   - chmod 600 ~/.ssh/id_rsa
