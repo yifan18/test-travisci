@@ -42,6 +42,15 @@ fi
 # 创建回滚文件
 cat <<EOF > build/rollback.sh
 # 回滚到上一个版本
+
+# 如果带了版本号参数 直接使用
+custom_version=$1
+if [ $custom_version ] && [ -d $deploy_path/$custom_version ]; then
+  cp -R $deploy_path/$custom_version/ $deploy_latest_path
+  exit
+fi
+
+
 if [ $deploy_last_version_path ]; then
   cp -R $deploy_last_version_path/ $deploy_latest_path
 fi
