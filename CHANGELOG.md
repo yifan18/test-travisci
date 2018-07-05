@@ -12,3 +12,7 @@
 
 - UPDATE 试着触发构建
 - FIX travis.yml 少了一个. 气哭
+
+# v1.0.4
+
+- UPDATE 加上了服务端的部署文件
