@@ -36,9 +36,7 @@ EOF
 if [ -d "$deploy_latest_path/package.json" ]; then
   last_version=$(cat $deploy_latest_path/package.json | grep version | awk '{print $2}' | sed 's/[",]//g')
   deploy_last_version_path=$deploy_path/${last_version}
-fi
-
-
+  
 # 创建回滚文件
 cat <<EOF > build/rollback.sh
 # 回滚到上一个版本
@@ -56,6 +54,9 @@ if [ $deploy_last_version_path ]; then
 fi
 # 
 EOF
+fi
+
+
 
 
 # 把build跟部署文件.sh都传到home下的临时目录
