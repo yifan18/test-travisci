@@ -4,8 +4,9 @@ PACKAGE_VERSION=$(cat package.json | grep version | awk '{print $2}' | sed 's/["
 PROJECT_NAME=$(cat package.json | grep name | awk '{print $2}' | sed 's/[",]//g')
 
 serverhost=yifan.moe
-deploy_version_path=/home/deploy/${PROJECT_NAME}/${PACKAGE_VERSION}
-deploy_latest_path=/home/deploy/${PROJECT_NAME}/latest
+deploy_path=/home/deploy/${PROJECT_NAME}
+deploy_version_path=$deploy_path/${PACKAGE_VERSION}
+deploy_latest_path=$deploy_path/latest
 server=root@$serverhost
 
 
@@ -14,16 +15,16 @@ temp_folder=$RANDOM
 mkdir $temp_folder
 # 创建部署文件
 cat << EOF > $temp_folder/sdl.sh
-# 1. 移动build目录到相应版本目录
-if [ ! -d $deploy_version_path ]; then
-  mkdir -p $deploy_version_path
+
+# 验证项目目录
+if [ ! -d $deploy_path ]; then
+  mkdir -p $deploy_path
 fi
+
+# 1. 移动build目录到相应版本目录
 cp -R build $deploy_version_path
 
 # 2. 移动build目录到部署目录
-if [ ! -d $deploy_latest_path ]; then
-  mkdir -p $deploy_latest_path
-fi
 cp -R build $deploy_latest_path
 
 # 3. 删除临时目录
@@ -34,7 +35,7 @@ EOF
 # 从latest的package.json里拿到版本号
 if [ -d "$deploy_latest_path/package.json" ]; then
   last_version=$(cat $deploy_latest_path/package.json | grep version | awk '{print $2}' | sed 's/[",]//g')
-  deploy_last_version_path=/home/deploy/${PROJECT_NAME}/${last_version}
+  deploy_last_version_path=$deploy_path/${last_version}
 fi
 
 
@@ -42,7 +43,7 @@ fi
 cat <<EOF > build/rollback.sh
 # 回滚到上一个版本
 if [ $deploy_last_version_path ]; then
-  cp -R $deploy_last_version_path $deploy_latest_path
+  cp -R $deploy_last_version_path/ $deploy_latest_path
 fi
 # 
 EOF
