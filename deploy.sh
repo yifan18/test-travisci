@@ -31,7 +31,7 @@ rm -rf /home/$temp_folder
 EOF
 
 # 把build跟部署文件.sh都传到home下的临时目录
-cp -R "build" "$temp_folder/build"
+cp -R "build" "$temp_folder"
 
 # 把临时目录传到部署服务器home目录下
 scp -o StrictHostKeyChecking=no -r $temp_folder "$server:/home"
