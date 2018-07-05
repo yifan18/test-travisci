@@ -27,7 +27,7 @@ fi
 cp -R build $deploy_latest_path
 
 # 3. 删除临时目录
-rm -rf /home/$temp_folder
+# rm -rf /home/$temp_folder
 EOF
 
 
