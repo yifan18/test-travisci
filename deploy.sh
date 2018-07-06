@@ -23,7 +23,7 @@ fi
 
 # 创建rollback.sh
 if [ -f "$deploy_latest_path/.version" ]; then
-  last_version=\$(cat $deploy_latest_path/.version)
+  last_version=$(cat $deploy_latest_path/.version)
   deploy_last_version_path=$deploy_path/\$last_version
 
 cat <<ROLLBACK > build/rollback.sh
@@ -52,13 +52,6 @@ fi
 # 3. 删除临时目录
 # rm -rf /home/$temp_folder
 EOF
-
-
-
-# 从latest的package.json里拿到版本号
-if [ -d "$deploy_latest_path/.version" ]; then
-  last_version=$(cat $deploy_latest_path/.version)
-  deploy_last_version_path=$deploy_path/${last_version}
 
 
 # 放一个版本文件.version
