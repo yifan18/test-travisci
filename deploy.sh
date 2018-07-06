@@ -28,7 +28,7 @@ cp -R build/ $deploy_version_path
 cp -R build/ $deploy_latest_path
 
 # 3. 删除临时目录
-rm -rf /home/$temp_folder
+# rm -rf /home/$temp_folder
 EOF
 
 
@@ -58,7 +58,7 @@ fi
 
 # 放一个版本文件.version
 cat <<EOF > build/.version
-PACKAGE_VERSION
+$PACKAGE_VERSION
 EOF
 
 # 把build跟部署文件.sh都传到home下的临时目录
