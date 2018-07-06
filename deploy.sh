@@ -23,7 +23,7 @@ fi
 
 # 创建rollback.sh
 if [ -f "$deploy_latest_path/.version" ]; then
-  last_version=$(cat $deploy_latest_path/.version)
+  last_version=\$(cat $deploy_latest_path/.version)
   deploy_last_version_path=$deploy_path/\$last_version
 
 cat <<ROLLBACK > build/rollback.sh
