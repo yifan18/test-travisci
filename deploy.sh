@@ -21,14 +21,38 @@ if [ ! -d $deploy_path ]; then
   mkdir -p $deploy_path
 fi
 
+# 创建rollback.sh
+if [ -f "$deploy_latest_path/.version" ]; then
+  last_version=$(cat $deploy_latest_path/.version)
+  deploy_last_version_path=$deploy_path/\$last_version
+
+cat <<ROLLBACK > build/rollback.sh
+# 回滚到上一个版本
+
+# 如果带了版本号参数 直接使用
+# custom_version=\$1
+# if [ \$custom_version ] && [ -d $deploy_path/\$custom_version ]; then
+#   cp -R $deploy_path/\$custom_version/ $deploy_latest_path
+#   exit
+# fi
+
+if [ \$deploy_last_version_path ]; then
+  \cp -R \$deploy_last_version_path/. $deploy_latest_path
+fi
+ROLLBACK
+
+fi
+
 # 1. 移动build目录到相应版本目录
-cp -R build/ $deploy_version_path
+\cp -R build/. $deploy_version_path
 
 # 2. 移动build目录到部署目录
-cp -R build/ $deploy_latest_path
+\cp -R build/. $deploy_latest_path
+
+
 
 # 3. 删除临时目录
-# rm -rf /home/$temp_folder
+rm -rf /home/$temp_folder
 EOF
 
 
