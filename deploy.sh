@@ -23,7 +23,7 @@ fi
 
 # 创建rollback.sh
 if [ -f "$deploy_latest_path/.version" ]; then
-  last_version=$(cat $deploy_latest_path/.version)
+  last_version=\$(cat $deploy_latest_path/.version)
   deploy_last_version_path=$deploy_path/\$last_version
 
 cat <<ROLLBACK > build/rollback.sh
@@ -59,23 +59,6 @@ EOF
 if [ -d "$deploy_latest_path/.version" ]; then
   last_version=$(cat $deploy_latest_path/.version)
   deploy_last_version_path=$deploy_path/${last_version}
-  
-# 创建回滚文件
-cat <<EOF > build/rollback.sh
-# 回滚到上一个版本
-
-# 如果带了版本号参数 直接使用
-custom_version=\$1
-if [ \$custom_version ] && [ -d $deploy_path/\$custom_version ]; then
-  cp -R $deploy_path/\$custom_version/ $deploy_latest_path
-  exit
-fi
-
-if [ $deploy_last_version_path ]; then
-  cp -R $deploy_last_version_path/ $deploy_latest_path
-fi
-EOF
-fi
 
 
 # 放一个版本文件.version
