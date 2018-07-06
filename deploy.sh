@@ -22,10 +22,10 @@ if [ ! -d $deploy_path ]; then
 fi
 
 # 1. 移动build目录到相应版本目录
-cp -R build $deploy_version_path
+cp -R build/ $deploy_version_path
 
 # 2. 移动build目录到部署目录
-cp -R build $deploy_latest_path
+cp -R build/ $deploy_latest_path
 
 # 3. 删除临时目录
 rm -rf /home/$temp_folder
@@ -56,15 +56,13 @@ EOF
 fi
 
 
-
+# 放一个版本文件.version
+cat <<EOF > build/.version
+PACKAGE_VERSION
+EOF
 
 # 把build跟部署文件.sh都传到home下的临时目录
 cp -R "build" "$temp_folder"
-
-# 放一个版本文件.version
-cat <<EOF > $temp_folder/build/.version
-PACKAGE_VERSION
-EOF
 
 # 把临时目录传到部署服务器home目录下 这里需要home的权限
 scp -o StrictHostKeyChecking=no -r $temp_folder "$server:/home"
